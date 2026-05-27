@@ -21,5 +21,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to determine your player side (West or East) based on your coordinates.</string>
 </dict>
 </plist>

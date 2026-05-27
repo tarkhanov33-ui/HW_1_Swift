@@ -11,6 +11,8 @@ struct Card {
 
 class CardManager {
     
+
+
     private let cardsHearts: [String: Int] = [
         "ace-of-hearts": 11,
         "king-of-hearts": 10,
