@@ -16,14 +16,13 @@ class GameViewController: UIViewController {
     
     private var gameManager: GameManager!
     private let cardManager = CardManager()
-    private var gameTimer: Timer?
+    private let timeManager = TimeManager()
     private var secondsLeftInRound = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         gameManager = GameManager(playerName: playerName, playerSide: playerSide)
-        
         setupPlayersUI()
         resetCardsToBack(animated: false)
         startNewGame()
@@ -55,12 +54,15 @@ class GameViewController: UIViewController {
         secondsLeftInRound = 5
         timerLabel.text = "\(secondsLeftInRound)"
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
+        timeManager.onTick = { [weak self] in
+            self?.timerTicked()
+        }
+        timeManager.start()
         
         playCurrentRound()
     }
     
-    @objc private func timerTicked() {
+    private func timerTicked() {
         secondsLeftInRound -= 1
         
         if secondsLeftInRound == 0 {
@@ -68,7 +70,6 @@ class GameViewController: UIViewController {
                 endGame()
                 return
             }
-            
             secondsLeftInRound = 5
             timerLabel.text = "\(secondsLeftInRound)"
             playCurrentRound()
@@ -101,11 +102,9 @@ class GameViewController: UIViewController {
     }
     
     private func endGame() {
-        gameTimer?.invalidate()
-        gameTimer = nil
+        timeManager.stop()
         
         let (winnerName, winnerScore) = gameManager.getWinnerAndScore()
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultViewController") as? ResultViewController {
             resultVC.winnerName = winnerName
@@ -116,6 +115,6 @@ class GameViewController: UIViewController {
     }
     
     deinit {
-        gameTimer?.invalidate()
+        timeManager.stop()
     }
 }

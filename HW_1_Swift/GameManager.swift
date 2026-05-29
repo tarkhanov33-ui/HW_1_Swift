@@ -54,7 +54,6 @@ class GameManager {
         } else if rightScore > leftScore {
             return (rightPlayerName, rightScore)
         } else {
-
             let pcScore = playerSide == .left ? rightScore : leftScore
             return ("PC", pcScore)
         }

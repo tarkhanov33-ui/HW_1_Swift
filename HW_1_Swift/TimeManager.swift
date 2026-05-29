@@ -1,27 +1,19 @@
 import Foundation
-class TimeManager{
+
+class TimeManager {
     private var timer: Timer?
-    var onTick: ((String) -> Void)?
-    private var secondsCounter = 0
-    var secondsUpdate: ((Int) -> Void)?
+    var onTick: (() -> Void)?
+    
     func start() {
-            guard timer == nil else { return }
-            
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-                self?.secondsCounter += 1
-                self?.secondsUpdate?(self?.secondsCounter ?? 0)
-            }
-        }
+        guard timer == nil else { return }
         
-        func pause() {
-            timer?.invalidate()
-            timer = nil
-        }
-        
-        func reset() {
-            pause()
-            secondsCounter = 0
-            secondsUpdate?(secondsCounter)
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.onTick?()
         }
     }
-
+    
+    func stop() {
+        timer?.invalidate()
+        timer = nil
+    }
+}

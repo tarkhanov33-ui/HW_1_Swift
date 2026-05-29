@@ -29,7 +29,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             break
         }
     }
-        
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
         if status == .authorizedWhenInUse || status == .authorizedAlways {

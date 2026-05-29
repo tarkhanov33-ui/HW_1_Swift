@@ -60,6 +60,7 @@ class MenuViewController: UIViewController, LocationManagerDelegate {
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
         guard let name = playerName, let side = playerSide else { return }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let gameVC = storyboard.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
             gameVC.playerName = name
@@ -68,7 +69,6 @@ class MenuViewController: UIViewController, LocationManagerDelegate {
             present(gameVC, animated: true)
         }
     }
-    
     
     func didUpdateLocation(latitude: Double, longitude: Double) {
         let arielLongitude = 34.817549168324334

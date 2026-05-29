@@ -10,9 +10,6 @@ struct Card {
 }
 
 class CardManager {
-    
-
-
     private let cardsHearts: [String: Int] = [
         "ace-of-hearts": 11,
         "king-of-hearts": 10,
@@ -26,8 +23,9 @@ class CardManager {
         "five-of-hearts": 5,
         "four-of-hearts": 4,
         "three-of-hearts": 3,
-        "two-of-hearts": 2,
+        "two-of-hearts": 2
     ]
+    
     private let cardsSpades: [String: Int] = [
         "ace-of-spades": 11,
         "king-of-spades": 10,
@@ -41,25 +39,18 @@ class CardManager {
         "five-of-spades": 5,
         "four-of-spades": 4,
         "three-of-spades": 3,
-        "two-of-spades": 2,
-        
+        "two-of-spades": 2
     ]
     
-    
-    init() {
-    }
-    
-
     func getRandomHeartCard() -> Card? {
         guard let randomCard = cardsHearts.randomElement() else { return nil }
-        return Card(name: randomCard.key, value: randomCard.value)    }
+        return Card(name: randomCard.key, value: randomCard.value)
+    }
+    
     func getRandomSpadeCard() -> Card? {
-       
         guard let randomCard = cardsSpades.randomElement() else { return nil }
-        return Card(name: randomCard.key, value: randomCard.value)    }
-    
-    
-    
+        return Card(name: randomCard.key, value: randomCard.value)
+    }
     
     func compareCards(card1: Card, card2: Card) -> Int {
         if card1.value > card2.value {
@@ -67,6 +58,7 @@ class CardManager {
         } else if card1.value < card2.value {
             return -1
         } else {
-            return 0        }
+            return 0
+        }
     }
 }
